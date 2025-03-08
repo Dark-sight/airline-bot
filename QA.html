@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Ticket FAQ | SkyAir International</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .faq-title {
+            text-align: center;
+            color: #1a237e;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .faq-question {
+            padding: 18px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: #1a237e;
+        }
+
+        .faq-question:hover {
+            background-color: #f8f9ff;
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            color: #424242;
+            line-height: 1.7;
+        }
+
+        .faq-answer p {
+            margin: 15px 0;
+        }
+
+        .icon {
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+            color: #1a237e;
+        }
+
+        .active .faq-answer {
+            padding: 20px 25px;
+            max-height: 500px;
+        }
+
+        .active .icon {
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 600px) {
+            .faq-question {
+                padding: 15px;
+                font-size: 0.95em;
+            }
+            
+            .faq-answer {
+                padding: 0 15px;
+                font-size: 0.9em;
+            }
+            
+            .active .faq-answer {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="faq-container">
+        <h1 class="faq-title">✈️ Flight Ticket FAQs</h1>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>How to change my flight ticket?</span>
+                <span class="icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>You can reschedule your flight through:<br>
+                1. "My Bookings" section on our website<br>
+                2. Customer service hotline +1-800-123-4567<br>
+                3. Airport service counter (minimum 2hrs before departure)<br>
+                * Change fees vary by fare conditions</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What's the baggage allowance?</span>
+                <span class="icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>Economy Class: 1 checked bag (≤23kg) + 1 carry-on (≤7kg)<br>
+                Business Class: 2 checked bags (≤32kg) + 2 carry-ons (≤7kg)<br>
+                Excess baggage: $15/kg for international flights</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Child ticket requirements?</span>
+                <span class="icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>• Infants (0-2yrs): 10% of adult fare (lap child)<br>
+                • Children (2-12yrs): 75% of adult fare<br>
+                • Valid ID required (birth certificate/passport)<br>
+                • Maximum 2 infants per adult</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>How to request special meals?</span>
+                <span class="icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>1. Select during booking process<br>
+                2. Manage booking section (up to 24hrs pre-flight)<br>
+                3. Call our customer service<br>
+                Options: Vegetarian, Halal, Kosher, Diabetic, etc.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Pet travel regulations?</span>
+                <span class="icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>• Requires 72hr advance notice<br>
+                • Health certificate mandatory<br>
+                • IATA-approved travel kennel<br>
+                • Max combined weight: 50kg<br>
+                • Breed restrictions apply</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Accordion functionality
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+                
+                // Close other items
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    if(otherItem !== parent) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+            })
+        });
+
+        // Mobile optimization
+        if(window.innerWidth <= 600) {
+            document.querySelectorAll('.faq-answer').forEach(answer => {
+                answer.style.fontSize = '0.9em';
+            });
+        }
+    </script>
+</body>
+</html>
