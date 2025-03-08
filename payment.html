@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Money Transfer | NextGen Bank</title>
+    <style>
+        :root {
+            --primary-blue: #1a237e;
+            --success-green: #2e7d32;
+            --error-red: #c62828;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .transfer-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0;
+        }
+
+        .security-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .lock-icon {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .split-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #424242;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+        }
+
+        .currency-group {
+            position: relative;
+        }
+
+        .currency-symbol {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #757575;
+        }
+
+        .security-notice {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            border-left: 4px solid #ffa726;
+        }
+
+        button {
+            background: var(--primary-blue);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #303f9f;
+        }
+
+        button:disabled {
+            background: #bdbdbd;
+            cursor: not-allowed;
+        }
+
+        .validation-error {
+            color: var(--error-red);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .split-form {
+                grid-template-columns: 1fr;
+            }
+
+            .transfer-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="transfer-container">
+        <div class="security-header">
+            <div class="lock-icon">🔒</div>
+            <h1>Secure Money Transfer</h1>
+            <p>256-bit SSL Encryption | ISO 27001 Certified</p>
+        </div>
+
+        <form id="transferForm">
+            <div class="split-form">
+                <div class="form-group">
+                    <label>From Account</label>
+                    <select required>
+                        <option value="">Select Account</option>
+                        <option>XXXX-7890 (Primary Checking)</option>
+                        <option>XXXX-1234 (Savings Account)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>To Account Number</label>
+                    <input type="text" pattern="[0-9]{10-12}" required>
+                    <div class="validation-error">Invalid account number</div>
+                </div>
+            </div>
+
+            <div class="split-form">
+                <div class="form-group">
+                    <label>Routing Number</label>
+                    <input type="text" pattern="[0-9]{9}" required>
+                    <div class="validation-error">Must be 9 digits</div>
+                </div>
+
+                <div class="form-group currency-group">
+                    <label>Amount</label>
+                    <input type="number" step="0.01" min="1" required>
+                    <div class="currency-symbol">USD</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Transfer Type</label>
+                <select>
+                    <option>Standard (1-3 business days)</option>
+                    <option>Instant Transfer ($5 fee)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Reference/Message</label>
+                <input type="text" maxlength="35">
+            </div>
+
+            <div class="security-notice">
+                <strong>Security Verification:</strong> You'll be redirected to our secure authentication portal after submission
+            </div>
+
+            <button type="submit" id="submitBtn">Initiate Transfer</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('transferForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
+
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
+            // Show success state
+            submitBtn.textContent = 'Transfer Initiated ✓';
+            submitBtn.style.background = 'var(--success-green)';
+            
+            // Reset after 3 seconds
+            setTimeout(() => {
+                form.reset();
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Initiate Transfer';
+                submitBtn.style.background = 'var(--primary-blue)';
+            }, 3000));
+        });
+
+        // Real-time validation
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', () => {
+                const errorDiv = input.nextElementSibling;
+                if (input.validity.valid) {
+                    errorDiv.style.display = 'none';
+                    input.style.borderColor = '#e0e0e0';
+                } else {
+                    errorDiv.style.display = 'block';
+                    input.style.borderColor = 'var(--error-red)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
